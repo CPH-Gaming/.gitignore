@@ -16,7 +16,7 @@ jobs:
 
     - name: Fetch .gitignore from central repository
       run: |
-        curl -O https://raw.githubusercontent.com/<organization>/<gitignore-templates-repo>/main/.gitignore
+        curl -O https://raw.githubusercontent.com/CPH-Gaming/.gitignore/main/.gitignore
 
     - name: Commit and Push if changed
       run: |
