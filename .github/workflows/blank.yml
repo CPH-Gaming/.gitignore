@@ -1,0 +1,27 @@
+name: Sync .gitignore
+
+on:
+  schedule:
+    # This schedule runs the workflow every day at midnight
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Fetch .gitignore from central repository
+      run: |
+        curl -O https://raw.githubusercontent.com/<organization>/<gitignore-templates-repo>/main/.gitignore
+
+    - name: Commit and Push if changed
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .gitignore
+        git commit -m "Update .gitignore" || exit 0
+        git push
